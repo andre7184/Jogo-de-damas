@@ -1,42 +1,109 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Define o "preto" e "branco" do nosso tabuleiro */
+:root {
+  --casa-clara: #e6e6e6;
+  --casa-escura: #7c7c7c;
+  --cor-borda: #4d4d4d;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Centraliza o jogo na tela */
+.jogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: sans-serif;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* O container do tabuleiro */
+.tabuleiro {
+  display: flex;
+  /* Isso faz as linhas ficarem uma em cima da outra */
+  flex-direction: column;
+  border: 5px solid var(--cor-borda);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Cada linha do tabuleiro */
+.linha {
+  display: flex;
+  /* Isso faz as casas ficarem lado a lado */
+  flex-direction: row;
 }
 
-.card {
-  padding: 2em;
+/* Cada casa individual */
+.casa {
+  width: 70px;
+  height: 70px;
+  
+  /* Centraliza o número (0, 1, 2) no meio da casa */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.3);
 }
 
-.read-the-docs {
-  color: #888;
+/* Aqui está a mágica do xadrez!
+  
+  .linha:nth-child(even) -> Seleciona linhas PARES (2, 4, 6, 8)
+  .linha:nth-child(odd)  -> Seleciona linhas ÍMPARES (1, 3, 5, 7)
+
+  .casa:nth-child(even)  -> Seleciona casas PARES (2, 4, 6, 8)
+  .casa:nth-child(odd)   -> Seleciona casas ÍMPARES (1, 3, 5, 7)
+*/
+
+/* Linha ÍMPAR: casa ÍMPAR é clara, casa PAR é escura */
+.linha:nth-child(odd) .casa:nth-child(odd) {
+  background-color: var(--casa-clara);
+}
+.linha:nth-child(odd) .casa:nth-child(even) {
+  background-color: var(--casa-escura);
+}
+
+/* Linha PAR: casa ÍMPAR é escura, casa PAR é clara */
+.linha:nth-child(even) .casa:nth-child(odd) {
+  background-color: var(--casa-escura);
+}
+.linha:nth-child(even) .casa:nth-child(even) {
+  background-color: var(--casa-clara);
+}
+
+/*
+ * ESTILOS DAS PEÇAS
+ */
+
+/* O estilo base para todas as peças */
+.peca {
+  /* Usamos % para a peça se ajustar ao tamanho da casa */
+  width: 75%; 
+  height: 75%;
+  
+  /* Isso faz o círculo perfeito */
+  border-radius: 50%; 
+
+  /* Isso centraliza a "coroa" (que faremos depois) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Efeito de sombra para dar profundidade */
+  box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.4), 
+              0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo específico da peça branca */
+.peca.branca {
+  background-color: #f8f8f8;
+  border: 1px solid #a0a0a0;
+  color: #333; /* Cor da futura "coroa" */
+}
+
+/* Estilo específico da peça preta */
+.peca.preta {
+  background-color: #3a3a3a;
+  border: 1px solid #202020;
+  color: #eee; /* Cor da futura "coroa" */
 }
