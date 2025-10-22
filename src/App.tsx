@@ -26,6 +26,53 @@ function App() {
   // Significa: "O estado é um array [num, num] OU é nulo (nada selecionado)"
   const [pecaSelecionada, setPecaSelecionada] = useState<[number, number] | null>(null);
 
+  const handleCasaClick = (linha: number, casa: number) => {
+    
+    // --- LÓGICA DE SEGUNDO CLIQUE (MOVER) ---
+    if (pecaSelecionada) {
+      // Se já temos uma peça selecionada, este é o clique de "destino"
+      
+      const [linhaOrigem, casaOrigem] = pecaSelecionada;
+      const peca = tabuleiro[linhaOrigem][casaOrigem]; // A peça que estamos movendo (ex: BRANCA)
+      const destino = tabuleiro[linha][casa]; // Onde estamos clicando
+
+      // TODO: Adicionar validação de movimento (diagonal, etc.)
+      // Por enquanto, a regra é simples: só pode mover para uma casa VAZIA
+      if (destino === VAZIO) {
+
+        // 1. Criar uma cópia do tabuleiro (NUNCA mude o estado diretamente!)
+        // Usamos .map() para criar uma cópia profunda das linhas e casas
+        const novoTabuleiro = tabuleiro.map(linhaAtual => [...linhaAtual]); 
+
+        // 2. Mover a peça
+        novoTabuleiro[linha][casa] = peca; // Coloca a peça no novo local
+        novoTabuleiro[linhaOrigem][casaOrigem] = VAZIO; // Esvazia o local antigo
+
+        // 3. Atualizar o estado do tabuleiro
+        setTabuleiro(novoTabuleiro);
+
+        // 4. Limpar a seleção
+        setPecaSelecionada(null);
+      } else {
+        // O destino não estava vazio (ex: clicou em outra peça)
+        // Ação: Apenas limpa a seleção
+        setPecaSelecionada(null);
+      }
+
+    } 
+    // --- LÓGICA DE PRIMEIRO CLIQUE (SELECIONAR) ---
+    else {
+      // Se não há peça selecionada, este é o clique de "seleção"
+      
+      const peca = tabuleiro[linha][casa];
+
+      // Se clicamos em uma peça branca, seleciona ela
+      if (peca === BRANCA) {
+        setPecaSelecionada([linha, casa]);
+      }
+    }
+  };
+
   // O return vem aqui embaixo
   return (
 <div className="jogo">
@@ -42,7 +89,13 @@ function App() {
             {/* Loop 2: Mapeia cada 'casa' dentro da 'linha' atual */}
             {linha.map((casa, indexCasa) => (
               
-              <div key={indexCasa} className="casa">
+              <div 
+                key={indexCasa} 
+                className="casa"
+                // NOVO EVENTO: Chama a função handleCasaClick quando clicado
+                // Passamos as coordenadas [indexLinha, indexCasa] para ela
+                onClick={() => handleCasaClick(indexLinha, indexCasa)}
+              >
                 {/* Aqui está a lógica condicional:
                   Se a casa NÃO for VAZIO, desenhe uma peça.
                 */}
