@@ -21,6 +21,11 @@ function App() {
     [BRANCA, VAZIO, BRANCA, VAZIO, BRANCA, VAZIO, BRANCA, VAZIO]  // Linha 7
   ]);
 
+  // NOVO ESTADO: Guarda as coordenadas [linha, casa] da peça clicada
+  // O <[number, number] | null> é TypeScript. 
+  // Significa: "O estado é um array [num, num] OU é nulo (nada selecionado)"
+  const [pecaSelecionada, setPecaSelecionada] = useState<[number, number] | null>(null);
+
   // O return vem aqui embaixo
   return (
 <div className="jogo">
