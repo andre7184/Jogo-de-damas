@@ -107,3 +107,30 @@
   border: 1px solid #202020;
   color: #eee; /* Cor da futura "coroa" */
 }
+
+/*
+ * ESTILOS DE INTERAÇÃO
+ */
+
+/* Estilo para a casa da peça que está selecionada */
+.casa.selecionada {
+  /* Pode ser um highlight de cor */
+  background-color: #5b95c0; /* Um azul para destacar */
+  
+  /* Ou uma borda (outline) que não afeta o tamanho */
+  outline: 4px solid #3d7099;
+  outline-offset: -4px;
+}
+
+/* Estilo para casas de movimento válido (as "setas") */
+.casa.valida {
+  /* Vamos desenhar um círculo verde no meio da casa */
+  background-image: radial-gradient(
+    circle, 
+    rgba(40, 167, 69, 0.7) 25%, /* Cor verde-sucesso com transparência */
+    transparent 26%
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer; /* Muda o mouse para "mãozinha" */
+}
