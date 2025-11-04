@@ -1,0 +1,74 @@
+/* src/components/Casa.css */
+
+/* Cada casa individual */
+.casa {
+  width: 70px;
+  height: 70px;
+
+  /* Centraliza a peça */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Para o "D" da Dama */
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Cores das casas (lógica do xadrez) */
+.linha:nth-child(odd) .casa:nth-child(odd) {
+  background-color: var(--casa-clara);
+}
+.linha:nth-child(odd) .casa:nth-child(even) {
+  background-color: var(--casa-escura);
+}
+.linha:nth-child(even) .casa:nth-child(odd) {
+  background-color: var(--casa-escura);
+}
+.linha:nth-child(even) .casa:nth-child(even) {
+  background-color: var(--casa-clara);
+}
+
+/*
+* ESTILOS DAS PEÇAS
+*/
+.peca {
+  width: 75%; 
+  height: 75%;
+  border-radius: 50%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 5px 5px rgba(0, 0, 0, 0.4), 
+              0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.peca.branca {
+  background-color: #f8f8f8;
+  border: 1px solid #a0a0a0;
+  color: #333; /* Cor do "D" */
+}
+
+.peca.preta {
+  background-color: #3a3a3a;
+  border: 1px solid #202020;
+  color: #eee; /* Cor do "D" */
+}
+
+/*
+* ESTILOS DE INTERAÇÃO
+*/
+.casa.selecionada {
+  outline: 4px solid #3d7099;
+  outline-offset: -4px;
+}
+.casa.valida {
+  background-image: radial-gradient(
+    circle, 
+    rgba(40, 167, 69, 0.7) 25%,
+    transparent 26%
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}

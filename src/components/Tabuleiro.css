@@ -1,0 +1,17 @@
+/* src/components/Tabuleiro.css */
+
+/* O container do tabuleiro */
+.tabuleiro {
+  display: flex;
+  /* Isso faz as linhas ficarem uma em cima da outra */
+  flex-direction: column;
+  border: 5px solid var(--cor-borda);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Cada linha do tabuleiro */
+.linha {
+  display: flex;
+  /* Isso faz as casas ficarem lado a lado */
+  flex-direction: row;
+}
